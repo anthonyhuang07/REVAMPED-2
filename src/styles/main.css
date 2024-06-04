@@ -1,0 +1,66 @@
+:root {
+    --fhd: #ff7700;
+}
+
+@keyframes gradient-move {
+    from {
+        background-position: 0% center;
+    } to {
+        background-position: -200% center;
+    }
+}
+
+*,
+*:after,
+*:before {
+    outline: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    position: relative;
+}
+
+body {
+    margin: 0;
+    position: relative;
+    background-attachment: fixed;
+    background-color: black;
+    font-family: "Inter", Helvetica, sans-serif;
+}
+
+space {
+    position: relative;
+    color: white;
+    font-weight: bold;
+    min-height: 100vh;
+    max-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+} space > h1 {
+    margin-left: 10%;
+    font-size: 5em;
+} space > h1 > span {
+    animation: gradient-move 2s linear infinite;
+    background-size: 200%;
+    background-clip: text;
+    background-image: linear-gradient(to right, #ff5500, #ffaa00, #ff5500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#earth {
+    position: absolute;
+    width: 2000px;
+    height: 2000px;
+    background-color: #023e8a;
+    bottom: 0;
+    right: 0;
+    border-radius: 50%;
+    translate: 55% 75%;
+}
