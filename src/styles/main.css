@@ -10,6 +10,11 @@
     }
 }
 
+@keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+}
+
 *,
 *:after,
 *:before {
@@ -28,39 +33,88 @@ html {
 body {
     margin: 0;
     position: relative;
-    background-attachment: fixed;
     background-color: black;
     font-family: "Inter", Helvetica, sans-serif;
 }
 
 space {
     position: relative;
+    width: 100%;
     color: white;
-    font-weight: bold;
-    min-height: 100vh;
-    max-height: 100vh;
+    min-height: calc(100vh + 200px);
     display: flex;
     align-items: center;
     overflow: hidden;
-} space > h1 {
+} space #stars {
+    top: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-attachment: fixed;
+    background: url("/assets/images/stars.png") no-repeat top center;
+    z-index: -1;
+} space #twinkling{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background:transparent url("/assets/images/twinkling.png") repeat top center;
+    z-index: 0;
+    animation:move-twink-back 200s linear infinite;
+} space #intro {
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
     margin-left: 10%;
+    z-index: 1;
+} space #intro h1 {
     font-size: 5em;
-} space > h1 > span {
+    font-weight: bold;
+    display: inline-block;
+} space #intro h1 span {
     animation: gradient-move 2s linear infinite;
     background-size: 200%;
     background-clip: text;
     background-image: linear-gradient(to right, #ff5500, #ffaa00, #ff5500);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-}
-
-#earth {
-    position: absolute;
-    width: 2000px;
-    height: 2000px;
-    background-color: #023e8a;
+} space #intro p {
+    font-size: 1.25em;
+    width: 75%;
+    font-weight: normal;
+} space #earth {
+    position: fixed;
+    width: 200vw;
+    height: 200vw;
+    background-image: radial-gradient(circle at center, hsl(217, 61%, 40%) 65%, #cceeff 90%);
     bottom: 0;
     right: 0;
     border-radius: 50%;
-    translate: 55% 75%;
+    box-shadow: 
+        0 0 30px 15px #bbccdd,
+        0 0 45px 30px #0066ff,
+        0 0 60px 45px #15204080;
+    transform: translate(50%, 87.5%);
+    z-index: 2;
+}
+
+sky {
+    display: block;
+    position: relative;
+    min-height: 50vh;
+    width: 100%;
+    background-image: linear-gradient(to bottom, hsl(217, 61%, 40%), #34ACE8);
+    z-index: 2;
+}
+
+land {
+    display: block;
+    position: relative;
+    width: 100%;
+    background-color: #34ACE8;
+    z-index: 2;
 }
