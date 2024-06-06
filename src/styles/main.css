@@ -1,5 +1,6 @@
 :root {
     --fhd: #ff7700;
+    --sky: #01BFF3;
 }
 
 @keyframes gradient-move {
@@ -35,15 +36,19 @@ body {
     position: relative;
     background-color: black;
     font-family: "Inter", Helvetica, sans-serif;
+    min-height: 200vh;
+}
+
+#title-content {
+    transform: scale(1);
 }
 
 space {
     position: relative;
     width: 100%;
     color: white;
-    min-height: calc(100vh + 200px);
+    min-height: 100vh;
     display: flex;
-    align-items: center;
     overflow: hidden;
 } space #stars {
     top: 0;
@@ -62,7 +67,16 @@ space {
     background:transparent url("/assets/images/twinkling.png") repeat top center;
     z-index: 0;
     animation:move-twink-back 200s linear infinite;
-} space #intro {
+} 
+
+#title-content {
+    position: fixed;
+    width: 100%;
+    transform: scale(100%);
+}
+
+
+space #intro {
     top: 0;
     height: 100vh;
     display: flex;
@@ -88,33 +102,17 @@ space {
     font-weight: normal;
 } space #earth {
     position: fixed;
-    width: 200vw;
-    height: 200vw;
-    background-image: radial-gradient(circle at center, hsl(217, 61%, 40%) 65%, #cceeff 90%);
+    width: 150vw;
+    height: 150vw;
+    background-image: linear-gradient(to bottom, hsl(217, 61%, 40%), var(--sky) 30%);
     bottom: 0;
     right: 0;
     border-radius: 50%;
     box-shadow: 
-        0 0 30px 15px #bbccdd,
+        inset 0 0 50px 15px #bbccdd, /* Inner white shadow */
+        0 0 30px 15px #ffffff,
         0 0 45px 30px #0066ff,
         0 0 60px 45px #15204080;
-    transform: translate(50%, 87.5%);
-    z-index: 2;
-}
-
-sky {
-    display: block;
-    position: relative;
-    min-height: 50vh;
-    width: 100%;
-    background-image: linear-gradient(to bottom, hsl(217, 61%, 40%), #34ACE8);
-    z-index: 2;
-}
-
-land {
-    display: block;
-    position: relative;
-    width: 100%;
-    background-color: #34ACE8;
+        transform: translate(55%, 110%);
     z-index: 2;
 }
