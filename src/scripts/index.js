@@ -1,22 +1,44 @@
-const earth = document.getElementById('earth');
-const titleContent = document.getElementById('title-content');
+import * as THREE from 'three';
+// import { OrbitControls } from '/node_modules/three/examples/jsm/controls/OrbitControls.js';
 
-function updateEarthPosition() {
+// scene, camera and renderer
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-    const scrollDistance = window.scrollY;
-    const maxScrollDistance = 200;
+const renderer = new THREE.WebGLRenderer({
+    alpha: true,
+    antialias: true,
+    canvas: document.querySelector('#san')
+});
+renderer.setPixelRatio(window.devicePixelRatio)
+renderer.setSize(window.innerWidth, window.innerHeight);
+camera.position.setZ(5);
 
-    // Limit the scroll distance to the maximum scroll distance
-    const limitedScrollDistance = Math.min(scrollDistance, maxScrollDistance);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
 
-    // Calculate the percentage of the maximum scroll distance
-    const scrollPercentage = limitedScrollDistance / maxScrollDistance;
+// const controls = new OrbitControls(camera, renderer.domElement );
 
-    // Calculate the new translation values based on scroll progress
-    const scale = 1 - 0.5 * (scrollPercentage);
+const loader = new THREE.TextureLoader();
 
-    titleContent.style.transform = `scale(${scale})`;
+// sphere
+const geometry = new THREE.SphereGeometry(1, 64, 64);
+const material = new THREE.MeshBasicMaterial({
+    map: loader.load("/assets/earth.png"),
+    bumpMap: loader.load("/assets/bump.jpg")
+    // wireframe: true
+});
+const earthMesh = new THREE.Mesh(geometry, material);
+scene.add(earthMesh);
+
+function animate() {
+    requestAnimationFrame(animate);
+    earthMesh.rotation.y += 0.01
+
+    camera.fov = 7.5
+    camera.position.y = 1
+    camera.updateProjectionMatrix();
+    renderer.render(scene, camera)
 }
 
-// Add event listener to listen for scroll events
-window.addEventListener('scroll', updateEarthPosition);
+animate()
