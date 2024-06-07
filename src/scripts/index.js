@@ -13,7 +13,6 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setPixelRatio(window.devicePixelRatio)
 renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(5);
-
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
 
@@ -23,22 +22,45 @@ const loader = new THREE.TextureLoader();
 
 // sphere
 const geometry = new THREE.SphereGeometry(1, 64, 64);
-const material = new THREE.MeshBasicMaterial({
-    map: loader.load("/assets/earth.png"),
-    bumpMap: loader.load("/assets/bump.jpg")
-    // wireframe: true
+const material = new THREE.MeshStandardMaterial({
+    map: loader.load("/assets/mars.jpg"),
+    bumpMap: loader.load("/assets/bump.jpg"),
+    bumpScale: 0.04,
 });
-const earthMesh = new THREE.Mesh(geometry, material);
-scene.add(earthMesh);
+const star = new THREE.Mesh(geometry, material);
+star.rotation.z = -25 * Math.PI / 180;
+scene.add(star);
+
+const sunLight = new THREE.DirectionalLight(0xffffff, 4.0);
+sunLight.position.set(-2, 0.5, 1.5);
+scene.add(sunLight);
+
+camera.fov = 7.5
+camera.position.y = 1
+
+function moveCamera(){
+    const t = document.body.getBoundingClientRect().top;
+    console.log(t)
+    document.getElementById("intro").style.transform = `scale(${1 - (-t/500)})`
+    camera.fov = 7.5 + t * -0.05
+    camera.position.y = 1 + t * 0.0025
+}
+
+document.body.onscroll = moveCamera;
 
 function animate() {
     requestAnimationFrame(animate);
-    earthMesh.rotation.y += 0.01
+    star.rotation.y += 0.001
 
-    camera.fov = 7.5
-    camera.position.y = 1
     camera.updateProjectionMatrix();
     renderer.render(scene, camera)
 }
 
 animate()
+
+function handleWindowResize () {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}
+window.addEventListener('resize', handleWindowResize, false);

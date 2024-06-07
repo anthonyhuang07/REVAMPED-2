@@ -1,6 +1,5 @@
 :root {
     --fhd: #ff7700;
-    --sky: #01BFF3;
 }
 
 @keyframes gradient-move {
@@ -38,9 +37,8 @@ body {
     font-family: "Inter", Helvetica, sans-serif;
     width: 100%;
     color: white;
-    min-height: 200vh;
+    min-height: 155vh;
     display: flex;
-    overflow: hidden;
     flex-direction: column;
     align-items: center;
 }
@@ -69,7 +67,7 @@ body {
     top: 0;
     display: flex;
     flex-direction: column;
-    position: relative;
+    position: fixed;
     margin: 10%;
     z-index: 1;
     align-items: center;
